@@ -1,0 +1,10 @@
+C:\Users\Platon\source\repos\Afins\Afins\bin\Debug\Afins.exe.config
+C:\Users\Platon\source\repos\Afins\Afins\bin\Debug\Afins.exe
+C:\Users\Platon\source\repos\Afins\Afins\bin\Debug\Afins.pdb
+C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.csproj.AssemblyReference.cache
+C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.Form1.resources
+C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.Properties.Resources.resources
+C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.csproj.GenerateResource.cache
+C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.csproj.CoreCompileInputs.cache
+C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.exe
+C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.pdb
