@@ -13,6 +13,85 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Afins
 {
+    /*
+     private Bitmap bitmap;
+        private List<List<Point>> shapes;
+        private List<Point> currentShape;
+        private ListBox shapeListBox;
+        private const int drawingAreaWidth = 800;
+        private const int drawingAreaHeight = 600;
+
+        public Form1()
+        {
+            this.bitmap = new Bitmap(drawingAreaWidth, drawingAreaHeight);
+            this.shapes = new List<List<Point>>();
+            this.currentShape = new List<Point>();
+
+            this.shapeListBox = new ListBox();
+            this.shapeListBox.Location = new Point(drawingAreaWidth + 10, 10);
+            this.shapeListBox.Size = new Size(150, 580);
+            this.Controls.Add(this.shapeListBox);
+
+            Button newShapeButton = new Button();
+            newShapeButton.Text = "New Shape";
+            newShapeButton.Location = new Point(drawingAreaWidth + 10, 600);
+            newShapeButton.Click += new EventHandler(this.OnNewShapeButtonClick);
+            this.Controls.Add(newShapeButton);
+
+            this.MouseClick += new MouseEventHandler(this.OnMouseClick);
+            this.Paint += new PaintEventHandler(this.OnPaint);
+        }
+
+        private void OnMouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.X < drawingAreaWidth && e.Y < drawingAreaHeight)
+            {
+                if (currentShape.Count > 2)
+                {
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.DrawLine(new Pen(this.BackColor), currentShape[currentShape.Count - 1], currentShape[0]);
+                    }
+                }
+
+                currentShape.Add(e.Location);
+
+                if (currentShape.Count > 1)
+                {
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.DrawLine(Pens.Black, currentShape[currentShape.Count - 2], currentShape[currentShape.Count - 1]);
+                    }
+                }
+
+                if (currentShape.Count > 2)
+                {
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.DrawLine(Pens.Black, currentShape[currentShape.Count - 1], currentShape[0]);
+                    }
+                }
+
+                this.Invalidate();
+            }
+        }
+
+        private void OnNewShapeButtonClick(object sender, EventArgs e)
+        {
+            if (currentShape.Count > 0)
+            {
+                shapes.Add(new List<Point>(currentShape));
+                shapeListBox.Items.Add($"Shape {shapes.Count}");
+                currentShape.Clear();
+            }
+        }
+
+        private void OnPaint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawImage(bitmap, 0, 0);
+            e.Graphics.DrawRectangle(Pens.Black, 0, 0, drawingAreaWidth - 1, drawingAreaHeight - 1); // Рисуем границу
+        }
+     */
     public partial class Form1 : Form
     {
         private List<PointF> points = new List<PointF>();

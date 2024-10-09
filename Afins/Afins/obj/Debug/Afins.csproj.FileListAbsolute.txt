@@ -18,3 +18,13 @@ A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.csproj.GenerateResourc
 A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.csproj.CoreCompileInputs.cache
 A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.exe
 A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.pdb
+D:\ComputerGraphics4\Afins\Afins\bin\Debug\Afins.exe.config
+D:\ComputerGraphics4\Afins\Afins\bin\Debug\Afins.exe
+D:\ComputerGraphics4\Afins\Afins\bin\Debug\Afins.pdb
+D:\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.csproj.AssemblyReference.cache
+D:\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.Form1.resources
+D:\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.Properties.Resources.resources
+D:\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.csproj.GenerateResource.cache
+D:\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.csproj.CoreCompileInputs.cache
+D:\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.exe
+D:\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.pdb
