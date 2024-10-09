@@ -19,25 +19,52 @@ namespace Afins
         private Matrix transformMatrix = new Matrix();
         private bool isRotating = false;
         private bool isTranslating = false;
-        private bool isScaling = false;
         private PointF figureCenter;
         private PointF lastMousePosition;
+        private const float closeDistance = 10f; // Максимальное расстояние для завершения фигуры
+
         public Form1()
         {
             InitializeComponent();
             this.panel1.MouseClick += new MouseEventHandler(this.panel1_MouseClick);
             this.panel1.Paint += new PaintEventHandler(this.panel1_Paint);
+            panel1.MouseWheel += new MouseEventHandler(this.panel1_MouseWheel);
+            panel1.MouseDown += new MouseEventHandler(this.panel1_MouseDown);
+            panel1.MouseMove += new MouseEventHandler(this.panel1_MouseMove);
+            panel1.MouseUp += new MouseEventHandler(this.panel1_MouseUp);
         }
-        
+
+        private void panel1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            float scaleFactor = e.Delta > 0 ? 1.1f : 0.9f;
+            PointF pointToScale = e.Location;
+
+            ApplyScaling(scaleFactor, scaleFactor, pointToScale);
+            panel1.Invalidate();
+        }
+
+        //переделано
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            if (points.Count > 1)
+            e.Graphics.Transform = transformMatrix;
+
+            // Отрисовываем отрезки по точкам
+            if (points.Count > 0)
             {
-                e.Graphics.Transform = transformMatrix;
-                e.Graphics.DrawPolygon(Pens.Black, points.ToArray());
+                for (int i = 0; i < points.Count - 1; i++)
+                {
+                    e.Graphics.DrawLine(Pens.Black, points[i], points[i + 1]);
+                }
+
+                // Соединяем последнюю и первую точку, если это необходимо
+                if (points.Count > 2 && IsClose(points[0], points[points.Count - 2]))
+                {
+                    e.Graphics.DrawLine(Pens.Black, points[0], points[points.Count - 2]);
+                }
             }
         }
 
+        //Очистка
         private void button1_Click(object sender, EventArgs e)
         {
             panel1.Invalidate();
@@ -45,20 +72,26 @@ namespace Afins
             points.Clear();
         }
 
+        //
         private void panel1_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                PointF[] clickPoint = { e.Location };
-                Matrix inverseMatrix = transformMatrix.Clone();
-                inverseMatrix.Invert();
-                inverseMatrix.TransformPoints(clickPoint);
+                PointF newPoint = e.Location;
 
-                points.Add(clickPoint[0]);
-                panel1.Invalidate();
+                // Проверка, является ли новая точка близкой к первой точке
+                /*if (points.Count > 0 && IsClose(newPoint, points[0]))
+                {
+                    // Завершить рисование
+                    return;
+                }*/
+
+                points.Add(newPoint);
+                panel1.Invalidate(); // Перерисовка панели
             }
         }
 
+        //
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
             if (isRotating)
@@ -76,20 +109,6 @@ namespace Afins
                 lastMousePosition = e.Location;
                 panel1.Invalidate();
             }
-            else if (isScaling)
-            {
-                float scaleX = 1 + (e.Location.X - lastMousePosition.X) / 100.0f;
-                float scaleY = 1 + (e.Location.Y - lastMousePosition.Y) / 100.0f;
-                if (Control.ModifierKeys == Keys.Space)
-                    ApplyScaling(scaleX, scaleY, figureCenter);
-                else
-                {
-                    PointF center = GetPolygonCenter();
-                    ApplyScaling(scaleX, scaleY, center);
-                }
-                lastMousePosition = e.Location;
-                panel1.Invalidate();
-            }
         }
 
         private void panel1_MouseUp(object sender, MouseEventArgs e)
@@ -98,7 +117,6 @@ namespace Afins
             {
                 isRotating = false;
                 isTranslating = false;
-                isScaling = false;
             }
         }
 
@@ -106,41 +124,51 @@ namespace Afins
         {
             if (e.Button == MouseButtons.Right && points.Count > 1)
             {
-                if (Control.ModifierKeys == Keys.Control)
+                if (e.Button == MouseButtons.Right && points.Count > 1)
                 {
-
-                    isRotating = true;
-                    figureCenter = e.Location;
+                    if (Control.ModifierKeys == Keys.Control)
+                    {
+                        isRotating = true;
+                        figureCenter = e.Location;
+                    }
+                    else if (Control.ModifierKeys == Keys.Shift)
+                    {
+                        isTranslating = true;
+                        lastMousePosition = e.Location;
+                    }
+                    else
+                    {
+                        isRotating = true;
+                        figureCenter = GetPolygonCenter();
+                    }
                 }
-                else if (Control.ModifierKeys == Keys.Shift)
-                {
-                    isTranslating = true;
-                }
-                else if (Control.ModifierKeys == Keys.Alt)
-                {
-                    isScaling = true;
-                }
-                else if (Control.ModifierKeys == Keys.Space)
-                {
-                    isScaling = true;
-                    figureCenter = e.Location;
-                }
-                else
-                {
-                    isRotating = true;
-                    figureCenter = GetPolygonCenter();
-                }
-                lastMousePosition = e.Location;
             }
         }
+
+        private bool IsClose(PointF point1, PointF point2)
+        {
+            return Math.Sqrt(Math.Pow(point1.X - point2.X, 2) + Math.Pow(point1.Y - point2.Y, 2)) <= closeDistance;
+        }
+
         private void ApplyScaling(float scaleX, float scaleY, PointF center)
         {
-            Matrix scaleMatrix = new Matrix(
-           scaleX, 0,
-                0, scaleY,
-            (1 - scaleX) * center.X, (1 - scaleY) * center.Y);
+            Matrix scaleMatrix = new Matrix(scaleX, 0, 0, scaleY, (1 - scaleX) * center.X, (1 - scaleY) * center.Y);
 
             transformMatrix.Multiply(scaleMatrix, MatrixOrder.Append);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PointF center = GetPolygonCenter();
+            ApplyScaling(1.1f, 1.1f, center);
+            panel1.Invalidate();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            PointF center = GetPolygonCenter();
+            ApplyScaling(0.9f, 0.9f, center);
+            panel1.Invalidate();
         }
 
         private void ApplyTranslation(float dx, float dy)
@@ -182,14 +210,20 @@ namespace Afins
         }
         private PointF GetPolygonCenter()
         {
-            float sumX = 0;
-            float sumY = 0;
+            if (points.Count == 0) return PointF.Empty;
+
+            float sumX = 0, sumY = 0;
             foreach (var point in points)
             {
                 sumX += point.X;
                 sumY += point.Y;
             }
             return new PointF(sumX / points.Count, sumY / points.Count);
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

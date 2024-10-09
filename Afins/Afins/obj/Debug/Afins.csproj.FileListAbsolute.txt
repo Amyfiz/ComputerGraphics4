@@ -8,3 +8,13 @@ C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.csproj.GenerateResource
 C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.csproj.CoreCompileInputs.cache
 C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.exe
 C:\Users\Platon\source\repos\Afins\Afins\obj\Debug\Afins.pdb
+A:\Projects\ComputerGraphics4\Afins\Afins\bin\Debug\Afins.exe.config
+A:\Projects\ComputerGraphics4\Afins\Afins\bin\Debug\Afins.exe
+A:\Projects\ComputerGraphics4\Afins\Afins\bin\Debug\Afins.pdb
+A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.csproj.AssemblyReference.cache
+A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.Form1.resources
+A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.Properties.Resources.resources
+A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.csproj.GenerateResource.cache
+A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.csproj.CoreCompileInputs.cache
+A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.exe
+A:\Projects\ComputerGraphics4\Afins\Afins\obj\Debug\Afins.pdb
